@@ -1,0 +1,2 @@
+class TrackingDevice < ApplicationRecord
+end
