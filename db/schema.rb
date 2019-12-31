@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_31_211644) do
+ActiveRecord::Schema.define(version: 2019_12_31_213218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,14 @@ ActiveRecord::Schema.define(version: 2019_12_31_211644) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "trackings", force: :cascade do |t|
+    t.bigint "trip_id", null: false
+    t.geometry "coordinates", limit: {:srid=>0, :type=>"st_point"}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["trip_id"], name: "index_trackings_on_trip_id"
+  end
+
   create_table "trips", force: :cascade do |t|
     t.bigint "bus_id", null: false
     t.bigint "route_id", null: false
@@ -71,6 +79,7 @@ ActiveRecord::Schema.define(version: 2019_12_31_211644) do
   add_foreign_key "routes", "locations", column: "end_location_id"
   add_foreign_key "routes", "locations", column: "start_location_id"
   add_foreign_key "routes", "route_polygons"
+  add_foreign_key "trackings", "trips"
   add_foreign_key "trips", "buses"
   add_foreign_key "trips", "routes"
 end
