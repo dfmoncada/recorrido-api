@@ -1,0 +1,2 @@
+class RoutePolygon < ApplicationRecord
+end
