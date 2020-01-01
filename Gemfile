@@ -20,8 +20,10 @@ gem 'puma', '~> 4.1'
 # gem 'image_processing', '~> 1.2'
 
 # OTHER
+gem 'active_model_serializers'
 gem 'activerecord-postgis-adapter'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'factory_bot'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
