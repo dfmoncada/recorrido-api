@@ -1,7 +1,36 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+BUS_NUMBER = 5
+GEO_FILE = File.read('db/santiago-peor-es-nada.geojson')
+GEO_POLYGON = JSON.parse(GEO_FILE)['features'][0]['geometry']['coordinates'][0]
+
+tracking_devices = BUS_NUMBER.times.collect do
+  TrackingDevice.create device_serial_number: SecureRandom.uuid
+end
+
+buses = tracking_devices.each.collect do |tracking_device|
+  Bus.create tracking_device: tracking_device,
+             plate: Faker::Vehicle.license_plate
+end
+
+locations = [
+  ['Santiago', -33.45382270754665, -70.69075584411621],
+  ['Peor Es Nada', -34.791074253715365, -71.04652404785156]
+].map do |name, long, lat|
+  Location.create name: name,
+                  lonlat: "POINT(#{long} #{lat})"
+end
+
+polygon_coordinates_string = GEO_POLYGON.map{|lon, lat| "#{lon} #{lat}"}
+                                        .join(', ')
+route_polygon = RoutePolygon.create description: "Santiago - Peor es Nada",
+                                    route_polygon: "POLYGON((#{polygon_coordinates_string}))"
+
+routes = [
+  ['Santiago => Peor es Nada', locations.first, locations.second, route_polygon],
+  ['Peor es Nada => Santiago', locations.second, locations.first, route_polygon],
+].map do |name, start_location, end_location, route_polygon|
+  Route.create name: name,
+               start_location: start_location,
+               end_location: end_location,
+               route_polygon: route_polygon
+end
+
