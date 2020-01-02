@@ -3,5 +3,7 @@ FactoryBot.define do
     association :start_location, factory: :location
     association :end_location, factory: :location
     association :route_polygon
+
+    name { "some name" }
   end
 end
