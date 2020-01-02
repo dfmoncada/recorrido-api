@@ -24,6 +24,7 @@ gem 'active_model_serializers'
 gem 'activerecord-postgis-adapter'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'factory_bot'
+gem 'rack-cors'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
