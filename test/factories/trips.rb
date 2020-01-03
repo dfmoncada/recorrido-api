@@ -4,6 +4,6 @@ FactoryBot.define do
     association :route
 
     start_time { DateTime.new }
-    status { 'On Route' }
+    status { 'in_progress' }
   end
 end
