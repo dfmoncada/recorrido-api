@@ -8,6 +8,9 @@ class Tracking < ApplicationRecord
 
   # refactor to use postgis ST_Dwithin(point, point, distance)
   def self.near_point(point)
+    point_string = "POINT(#{point.x} #{point.y})"
+    return where("ST_DWithin(coordinates, ST_GeomFromText('#{point_string}', 4326), 100)")
+
     points = pluck(:id, :coordinates).select do |id, coord|
       Distance.(coord, point) < 0.1
     end
