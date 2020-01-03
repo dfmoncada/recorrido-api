@@ -3,7 +3,7 @@ FactoryBot.define do
     association :bus
     association :route
 
-    time { DateTime.new }
+    start_time { DateTime.new }
     status { 'On Route' }
   end
 end

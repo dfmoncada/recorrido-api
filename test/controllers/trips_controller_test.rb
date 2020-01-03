@@ -11,7 +11,7 @@ class TripsControllerTest < ActionDispatch::IntegrationTest
     yesterday = 1.days.ago
     tomorrow = 1.days.since
     [now, yesterday, tomorrow].each do |datetime|
-      create(:trip, time: datetime)
+      create(:trip, start_time: datetime)
     end
 
     get trips_index_url, params: {date: now.to_date}

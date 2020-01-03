@@ -50,6 +50,6 @@ trips = 100.times.with_index.collect do |idx|
 
   Trip.create(route: route,
               bus: bus,
-              time: datetime,
+              start_time: datetime,
               status: 'in progress')
 end.flatten

@@ -3,6 +3,7 @@ class TripsController < ApplicationController
     trips = Trip.where(search_params)
                 .for_date(date)
                 .for_bus_params(bus_params)
+                .includes(:bus)
 
     render json: trips
   end

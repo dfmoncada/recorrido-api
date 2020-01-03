@@ -5,7 +5,7 @@ class Trip < ApplicationRecord
   def self.for_date(date)
     return all if date.nil?
 
-    where("time BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day)
+    where("start_time BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day)
   end
 
   def self.for_bus_params(params)
